@@ -8,18 +8,27 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
-import { Link } from "expo-router";
 import imagePath from "@/src/constants/imagePath";
 import { useFonts, Roboto_700Bold } from "@expo-google-fonts/roboto";
+import { router } from "expo-router";
 
 const Auth = () => {
   const [loading, setLoading] = useState(false);
 
+  // routing to index to welcome page
+  function Go_to_welcome_page() {
+    router.push("/(auth)/terms_agree");
+  }
+
+  function loading_time() {
+    setLoading(true);
+    setTimeout(Go_to_welcome_page, 3000);
+  }
+
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(true);
-    }, 2000);
+    setTimeout(loading_time, 2000);
   }, []);
+
   const [loaded, error] = useFonts({
     Roboto_700Bold,
   });
