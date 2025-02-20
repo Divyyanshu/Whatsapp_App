@@ -5,8 +5,8 @@ import { Link } from 'expo-router'
 const Verify_Otp = () => {
   return (
      <View style={styles.container}>
-          <Text style={styles.pageText}>Verify_Otp</Text>
-          <Link href={'/'}>Go to Index_Home</Link>
+          <Text>Verify_Otp</Text>
+          <Link href={'/(main)'}>Go to Main_Stack</Link>
         </View>
   )
 }
@@ -15,15 +15,8 @@ export default Verify_Otp
 
 const styles = StyleSheet.create({
   container:{
-    marginTop:60,
-    marginHorizontal:20
+   flex: 1,
+   justifyContent : "center",
+   alignItems: "center"
   },
-  pageText:{
-    backgroundColor : "pink",
-    padding :10,
-    borderRadius : 20,
-    textAlign: "center",
-    marginBottom : 20
-  }
-
 })

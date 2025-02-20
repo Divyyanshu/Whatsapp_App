@@ -5,7 +5,8 @@ import { Stack } from 'expo-router'
 const MainStack = () => {
   return (
     <Stack>
-      <Text>MainStack</Text>
+     <Stack.Screen name="index" />
+     <Stack.Screen name="chat" />
     </Stack>
   )
 }
