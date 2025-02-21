@@ -17,7 +17,7 @@ const Auth = () => {
 
   // routing to index to welcome page
   function Go_to_welcome_page() {
-    router.push("/(auth)/terms_agree");
+    router.push("/(auth)/login");
   }
 
   function loading_time() {
@@ -37,18 +37,19 @@ const Auth = () => {
       <View style={styles.header}></View>
       <View style={styles.body}>
         <Image source={imagePath.logo} style={styles.logo_style} />
-        <Text style={styles.Whatsapp_text}>WhatsApp</Text>
+        <Text style={styles.whatsappBy_text}>WhatsApp by</Text>
+        <Text style={styles.Loadinfotech_text}>Loadinfotech</Text>
       </View>
       <View style={styles.footer}>
         {loading ? (
           <>
-            <ActivityIndicator color={"#0CCC83"} size={moderateScale(50)} />
+            <ActivityIndicator color={"#000000"} size={moderateScale(50)} />
             <Text style={styles.loading_text}>Loading...</Text>
           </>
         ) : (
           <>
             <Text style={styles.from_text}>from</Text>
-            <Text style={styles.facebook_text}>Facebook</Text>
+            <Text style={styles.Loadinfo_text}>Load-infotech</Text>
           </>
         )}
       </View>
@@ -80,22 +81,27 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(12),
     color: "#867373",
   },
-  facebook_text: {
+  Loadinfo_text: {
     fontSize: moderateScale(15),
     color: "#000000",
   },
   loading_text: {
-    fontSize: moderateScale(18),
+    fontSize: moderateScale(24),
     fontWeight: "600",
-    color: "#00A884",
+    color: "#867373",
   },
   logo_style: {
     width: moderateScale(50),
     height: moderateScale(50),
     borderRadius: moderateScale(12),
   },
-  Whatsapp_text: {
-    fontSize: moderateScale(35),
+  whatsappBy_text:{
+    fontSize: moderateScale(18),
+    fontFamily: "Roboto_700Bold",
+    color: "#867373",
+  },
+  Loadinfotech_text: {
+    fontSize: moderateScale(25),
     fontFamily: "Roboto_700Bold",
   },
 });
