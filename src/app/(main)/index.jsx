@@ -6,11 +6,11 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 import chatData from "../(main)/chatData";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
-import Feather from "@expo/vector-icons/Feather";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 
@@ -21,13 +21,17 @@ const ChatScreen = () => {
       params: { name },
     });
   }
-
   return (
     <SafeAreaView style={styles.safe_container}>
       <View style={styles.header}>
+        <View style={styles.heading_container}>
         <Text style={styles.header_text}>LoadInfoTech</Text>
-        <Feather name="search" size={24} color="white" />
-        <Ionicons name="options" size={24} color="white" />
+        <Ionicons name="options" size={24} color="black" />
+        </View>
+        <View style={styles.heading_search}>
+        <Ionicons name="search" size={18} color="grey" />
+        <TextInput placeholder="Search !"/>
+        </View>
       </View>
       <View style={styles.chat_container}>
         <FlatList
@@ -38,7 +42,11 @@ const ChatScreen = () => {
               style={styles.chatItem}
               onPress={() => GotoChatPage(item.name)}
             >
-              <Image source={{ uri: item.avatar }} style={styles.avatar} />
+              <View style={styles.avatar}>
+                <Text style={styles.avatarText}>
+                  {item.name.substring(0, 1)}
+                </Text>
+              </View>
               <View style={styles.chatDetails}>
                 <View style={styles.chatHeader}>
                   <Text style={styles.chatName}>{item.name}</Text>
@@ -61,19 +69,30 @@ const styles = StyleSheet.create({
   },
   chat_container: {
     backgroundColor: "white",
-    borderRadius: moderateScale(30),
+    // borderRadius: moderateScale(30),
+  },
+  heading_container:{
+    flexDirection : "row",
+    justifyContent : "space-between"
+  },
+  heading_search:{
+    flexDirection : "row",
+    backgroundColor : "#ededed",
+    paddingVertical : scale(10),
+    paddingHorizontal : scale(15),
+    borderRadius : scale(40),
+    gap : 10
   },
   header: {
-    flexDirection: "row",
-    alignItems: "center",
     paddingHorizontal: scale(20),
+    paddingVertical  :scale (20),
     justifyContent: "space-between",
-    height: verticalScale(60),
-    backgroundColor: "#008069",
+    height: verticalScale(100),
+    backgroundColor: "white",
   },
   header_text: {
-    fontSize: scale(30),
-    color: "white",
+    fontSize: scale(20),
+    color: "#008069",
     fontWeight: "600",
   },
   chatItem: {
@@ -85,7 +104,14 @@ const styles = StyleSheet.create({
   avatar: {
     width: 50,
     height: 50,
-    borderRadius: 50,
+    borderRadius: 25,
+    backgroundColor: "lightblue",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  avatarText: {
+    fontSize: 20,
+    color: "white",
   },
   chatDetails: {
     flex: 1,

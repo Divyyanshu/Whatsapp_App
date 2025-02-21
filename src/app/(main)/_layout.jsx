@@ -5,7 +5,9 @@ import { router, Stack } from "expo-router";
 
 const MainStack = () => {
   return (
-    <Stack screenOptions={{ headerShown: false }}>
+    <Stack screenOptions={{ headerShown: false ,
+      headerBackTitleVisible  : false
+     }}>
       <Stack.Screen name="index" />
       <Stack.Screen
         name="chatPage"
@@ -40,9 +42,9 @@ const MainStack = () => {
           headerShown: true,
           headerBackTitle: "Back",
           headerBackTitleVisible: false,
-          headerTransparent: false,
-          gestureEnabled: true,
-          gestureDirection: "vertical",
+          // headerTransparent: false,
+          // gestureEnabled: true,
+          // gestureDirection: "vertical",
         })}
       />
     </Stack>
