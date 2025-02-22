@@ -40,7 +40,7 @@ const MainStack = () => {
             </View>
           ),
           headerShown: true,
-          headerBackTitle: "Back",
+          headerBackTitle: "Chats",
           headerBackTitleVisible: false,
           headerTransparent: false,
           gestureEnabled: true,

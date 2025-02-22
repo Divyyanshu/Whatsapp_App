@@ -13,7 +13,7 @@ import {
 import Feather from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import messageChats from "./messageChats";
+import messageChats from "../../constants/messageChats";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 
 const ChatPage = () => {

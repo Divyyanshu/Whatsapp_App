@@ -3,12 +3,11 @@ import {
   View,
   Text,
   FlatList,
-  Image,
   StyleSheet,
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import chatData from "../(main)/chatData";
+import chatData from "../../constants/chatData";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 import Ionicons from "@expo/vector-icons/Ionicons";
