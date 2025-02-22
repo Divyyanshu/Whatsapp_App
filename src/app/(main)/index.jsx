@@ -5,6 +5,7 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
+  KeyboardAvoidingView,Platform,
   TextInput,
 } from "react-native";
 import chatData from "../../constants/chatData";
@@ -22,6 +23,11 @@ const ChatScreen = () => {
   }
   return (
     <SafeAreaView style={styles.safe_container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 40}
+      ></KeyboardAvoidingView>
       <View style={styles.header}>
         <View style={styles.heading_container}>
           <Text style={styles.header_text}>LoadInfoTech</Text>
@@ -68,7 +74,7 @@ const ChatScreen = () => {
 const styles = StyleSheet.create({
   safe_container: {
     flex: 1,
-    backgroundColor: "#008069",
+    backgroundColor: "#008069"
   },
   chat_container: {
     backgroundColor: "white",
@@ -115,7 +121,7 @@ const styles = StyleSheet.create({
   },
   avatarText: {
     fontSize: 20,
-    color: "white",
+    color: "#008069",
   },
   chatDetails: {
     flex: 1,
@@ -138,7 +144,7 @@ const styles = StyleSheet.create({
     color: "#000",
     fontSize: 14,
     marginTop: 3,
-  },
+  }
 });
 
 export default ChatScreen;
