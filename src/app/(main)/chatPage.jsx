@@ -19,12 +19,13 @@ import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 const ChatPage = () => {
   const [messages, setMessages] = useState(messageChats);
   const [newMessage, setNewMessage] = useState("");
+  const [time, setTime] = useState(messageChats);
   const flatListRef = useRef(null);
 
   const sendMessage = () => {
     if (newMessage.trim() === "") return;
 
-    const userMessage = { text: newMessage, sender: "user" };
+    const userMessage = { text: newMessage, sender: "user", time: "time" };
     setMessages((prev) => [...prev, userMessage]);
 
     setTimeout(() => {
@@ -45,9 +46,26 @@ const ChatPage = () => {
         ]}
       >
         <View
-          style={[styles.message, isUser ? styles.userMessage : styles.botMessage]}
+          style={[
+            styles.message,
+            isUser ? styles.userMessage : styles.botMessage,
+          ]}
         >
           <Text style={styles.messageText}>{item.text}</Text>
+
+          {/* realTime messages time */}
+          <View style={styles.messageTime_container}>
+            <Text style={styles.message_real_time}>{item.time}</Text>
+            {item.messageStatus === "sent" && (
+              <MaterialIcons name="done" size={16} color="black" />
+            )}
+            {item.messageStatus === "delivered" && (
+              <MaterialIcons name="done-all" size={16} color="gray" />
+            )}
+            {item.messageStatus === "read" && (
+              <MaterialIcons name="done-all" size={16} color="#00b6e7" />
+            )}
+          </View>
         </View>
       </View>
     );
@@ -61,18 +79,18 @@ const ChatPage = () => {
         keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 40}
       >
         <View style={styles.messageChat_body}>
-        {/* Chat Messages */}
-        <FlatList
-          data={messages}
-          renderItem={renderMessage}
-          keyExtractor={(item, index) => index.toString()}
-          ref={flatListRef}
-          onContentSizeChange={() =>
-            flatListRef.current?.scrollToEnd({ animated: true })
-          }
-          contentContainerStyle={styles.messageList}
-        />
-</View>
+          {/* Chat Messages */}
+          <FlatList
+            data={messages}
+            renderItem={renderMessage}
+            keyExtractor={(item, index) => index.toString()}
+            ref={flatListRef}
+            onContentSizeChange={() =>
+              flatListRef.current?.scrollToEnd({ animated: true })
+            }
+            contentContainerStyle={styles.messageList}
+          />
+        </View>
         {/* Footer */}
         <View style={styles.footer}>
           <View style={styles.message_Container}>
@@ -115,9 +133,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-  messageChat_body:{
-    flex :1,
-    backgroundColor : "#C4C4C4"
+  messageChat_body: {
+    flex: 1,
+    backgroundColor: "#C4C4C4",
   },
   messageList: {
     padding: scale(10),
@@ -146,8 +164,19 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f0f0",
   },
   messageText: {
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(12),
     color: "#000",
+  },
+  messageTime_container: {
+    flex: 1,
+    marginTop: 10,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  message_real_time: {
+    fontSize: scale(10),
+    color: "#313131",
   },
   footer: {
     height: verticalScale(70),

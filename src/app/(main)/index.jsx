@@ -25,13 +25,15 @@ const ChatScreen = () => {
     <SafeAreaView style={styles.safe_container}>
       <View style={styles.header}>
         <View style={styles.heading_container}>
-        <Text style={styles.header_text}>LoadInfoTech</Text>
-        <Ionicons name="options" size={24} color="black" />
+          <Text style={styles.header_text}>LoadInfoTech</Text>
+          <TouchableOpacity>
+            <Ionicons name="options" size={24} color="black" />
+          </TouchableOpacity>
         </View>
-        <View style={styles.heading_search}>
-        <Ionicons name="search" size={18} color="grey" />
-        <TextInput placeholder="Search !"/>
-        </View>
+        <TouchableOpacity style={styles.heading_search}>
+          <Ionicons name="search" size={18} color="grey" />
+          <TextInput placeholder="Search" placeholderTextColor={"grey"} />
+        </TouchableOpacity>
       </View>
       <View style={styles.chat_container}>
         <FlatList
@@ -71,21 +73,21 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     // borderRadius: moderateScale(30),
   },
-  heading_container:{
-    flexDirection : "row",
-    justifyContent : "space-between"
+  heading_container: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
-  heading_search:{
-    flexDirection : "row",
-    backgroundColor : "#ededed",
-    paddingVertical : scale(10),
-    paddingHorizontal : scale(15),
-    borderRadius : scale(40),
-    gap : 10
+  heading_search: {
+    flexDirection: "row",
+    backgroundColor: "#ededed",
+    paddingVertical: scale(10),
+    paddingHorizontal: scale(15),
+    borderRadius: scale(40),
+    gap: 10,
   },
   header: {
     paddingHorizontal: scale(20),
-    paddingVertical  :scale (20),
+    paddingVertical: scale(20),
     justifyContent: "space-between",
     height: verticalScale(100),
     backgroundColor: "white",
