@@ -19,20 +19,36 @@ import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 const ChatPage = () => {
   const [messages, setMessages] = useState(messageChats);
   const [newMessage, setNewMessage] = useState("");
-  const [time, setTime] = useState(messageChats);
   const flatListRef = useRef(null);
 
   const sendMessage = () => {
     if (newMessage.trim() === "") return;
 
-    const userMessage = { text: newMessage, sender: "user", time: "time" };
+    const getCurrentTime = () => {
+      const now = new Date();
+      return now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    };
+    const userMessage = {
+      text: newMessage,
+      sender: "user",
+      time: getCurrentTime(),
+      messageStatus: "read",
+    };
     setMessages((prev) => [...prev, userMessage]);
 
     setTimeout(() => {
-      setMessages((prev) => [...prev, { text: "I am a bot!", sender: "bot" }]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          text: "Hey Divyanshu here ! what's going on",
+          sender: "bot",
+          time: getCurrentTime(),
+        },
+      ]);
     }, 1000);
 
-    setNewMessage("");
+    setNewMessage(""); // Clear input after sending
+
     setTimeout(() => flatListRef.current?.scrollToEnd({ animated: true }), 100);
   };
 
@@ -52,8 +68,7 @@ const ChatPage = () => {
           ]}
         >
           <Text style={styles.messageText}>{item.text}</Text>
-
-          {/* realTime messages time */}
+          {/* realime messages time */}
           <View style={styles.messageTime_container}>
             <Text style={styles.message_real_time}>{item.time}</Text>
             {item.messageStatus === "sent" && (
@@ -72,14 +87,13 @@ const ChatPage = () => {
   };
 
   return (
-    <SafeAreaView edges={["bottom"]} style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.container}
         keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 40}
       >
         <View style={styles.messageChat_body}>
-          {/* Chat Messages */}
           <FlatList
             data={messages}
             renderItem={renderMessage}
@@ -91,6 +105,7 @@ const ChatPage = () => {
             contentContainerStyle={styles.messageList}
           />
         </View>
+
         {/* Footer */}
         <View style={styles.footer}>
           <View style={styles.message_Container}>
@@ -98,6 +113,7 @@ const ChatPage = () => {
               <TouchableOpacity>
                 <Feather name="smile" size={20} color="gray" />
               </TouchableOpacity>
+
               <TextInput
                 style={styles.input_box}
                 placeholder="Message"
@@ -106,18 +122,22 @@ const ChatPage = () => {
                 value={newMessage}
                 onChangeText={setNewMessage}
               />
+
               <TouchableOpacity>
                 <MaterialIcons name="attach-file" size={20} color="gray" />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <MaterialIcons name="currency-rupee" size={20} color="gray" />
               </TouchableOpacity>
               <TouchableOpacity>
                 <MaterialIcons name="camera-alt" size={20} color="gray" />
               </TouchableOpacity>
             </View>
+
+            {/* Send Button / Mic Button */}
             <TouchableOpacity style={styles.micButton} onPress={sendMessage}>
-              <Ionicons name="mic" size={24} color="white" />
+              {newMessage.trim() === "" ? (
+                <Ionicons name="mic" size={24} color="white" />
+              ) : (
+                <Ionicons name="send" size={24} color="white" />
+              )}
             </TouchableOpacity>
           </View>
         </View>

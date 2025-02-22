@@ -30,10 +30,12 @@ const ChatScreen = () => {
             <Ionicons name="options" size={24} color="black" />
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.heading_search}>
+        <View style={styles.heading_search}>
           <Ionicons name="search" size={18} color="grey" />
-          <TextInput placeholder="Search" placeholderTextColor={"grey"} />
-        </TouchableOpacity>
+          <TouchableOpacity>
+          <TextInput placeholder="Search" placeholderTextColor={"grey"} returnKeyType="done" />
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.chat_container}>
         <FlatList
@@ -78,6 +80,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   heading_search: {
+    alignItems : "center",
     flexDirection: "row",
     backgroundColor: "#ededed",
     paddingVertical: scale(10),
@@ -107,7 +110,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: "lightblue",
+    backgroundColor: "#c1eecc",
     justifyContent: "center",
     alignItems: "center",
   },
