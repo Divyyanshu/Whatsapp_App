@@ -43,7 +43,7 @@ const Auth = () => {
       <View style={styles.footer}>
         {loading ? (
           <>
-            <ActivityIndicator color={"#000000"} size={moderateScale(50)} />
+            <ActivityIndicator color={"#000000"} size={moderateScale(20)} />
             <Text style={styles.loading_text}>Loading...</Text>
           </>
         ) : (
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     color: "#000000",
   },
   loading_text: {
-    fontSize: moderateScale(24),
+    fontSize: moderateScale(14),
     fontWeight: "600",
     color: "#867373",
   },

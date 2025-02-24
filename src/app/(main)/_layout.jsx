@@ -5,9 +5,9 @@ import { router, Stack } from "expo-router";
 
 const MainStack = () => {
   return (
-    <Stack screenOptions={{ headerShown: false ,
-      headerBackTitleVisible  : false
-     }}>
+    <Stack
+      screenOptions={{ headerShown: false, headerBackTitleVisible: false }}
+    >
       <Stack.Screen name="index" />
       <Stack.Screen
         name="chatPage"
@@ -18,7 +18,11 @@ const MainStack = () => {
           headerTitleStyle: { fontWeight: "bold" },
           headerRight: () => (
             <View style={{ flexDirection: "row", marginRight: 10 }}>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  router.push("/(main)/videoChats");
+                }}
+              >
                 <Ionicons
                   name="videocam"
                   size={24}
@@ -26,7 +30,11 @@ const MainStack = () => {
                   style={{ marginRight: 20 }}
                 />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  router.push("/(main)/call");
+                }}
+              >
                 <Ionicons
                   name="call"
                   size={24}
@@ -34,19 +42,29 @@ const MainStack = () => {
                   style={{ marginRight: 20 }}
                 />
               </TouchableOpacity>
-              <TouchableOpacity>
-                <Ionicons name="ellipsis-vertical" size={24} color="white" />
+              <TouchableOpacity
+                onPress={() => {
+                  router.navigate("/(main)/userprofile")
+                }}
+              >
+                <Ionicons
+                  name="person-circle-outline"
+                  size={24}
+                  color="white"
+                />
               </TouchableOpacity>
             </View>
           ),
           headerShown: true,
           headerBackTitle: "Chats",
-          headerBackTitleVisible: false,
-          headerTransparent: false,
+          headerBackTitleVisible: true,
+          headerTransparent: true,
           gestureEnabled: true,
           gestureDirection: "vertical",
         })}
       />
+      <Stack.Screen name="videoChats"/>
+      <Stack.Screen name="call" />
     </Stack>
   );
 };

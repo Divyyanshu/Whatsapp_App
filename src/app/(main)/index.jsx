@@ -31,8 +31,10 @@ const ChatScreen = () => {
       <View style={styles.header}>
         <View style={styles.heading_container}>
           <Text style={styles.header_text}>LoadInfoTech</Text>
-          <TouchableOpacity>
-            <Ionicons name="options" size={24} color="black" />
+          <TouchableOpacity onPress={()=>{
+            router.push("/(main)/settingPage")
+          }}>
+            <Ionicons name="settings-outline" size={24} color="black" />
           </TouchableOpacity>
         </View>
         <View style={styles.heading_search}>

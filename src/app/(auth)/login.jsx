@@ -1,7 +1,7 @@
-import { StyleSheet, Text, TextInput, View, Alert, KeyboardAvoidingView, Platform , Image } from "react-native";
+import { StyleSheet, Text, TextInput, View, Alert, KeyboardAvoidingView, Platform , Image, TouchableOpacity } from "react-native";
 import React, { useState, useRef, useEffect } from "react";
 import { router } from "expo-router";
-import { moderateScale, scale, verticalScale } from "react-native-size-matters";
+import { moderateScale, s, scale, verticalScale } from "react-native-size-matters";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ButtonComp from "@/src/components/atoms/ButtonComp";
 import imagePath from "@/src/constants/imagePath";
@@ -60,6 +60,9 @@ const Login = () => {
             returnKeyType="done"
           />
         </View>
+        <TouchableOpacity style={styles.forgot_password_container} onPress={()=>Alert.alert("okie!")}>
+          <Text style={styles.forgot_password_text}>Forgot password ?</Text>
+        </TouchableOpacity>
         </View>
         <View style={styles.footer}>
           <ButtonComp title="Login" onPress={onLogin} />
@@ -113,4 +116,10 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
   },
+  forgot_password_container:{
+    marginBottom: 10 
+  },
+  forgot_password_text:{
+    fontSize : scale(8)
+  }
 });
