@@ -1,7 +1,7 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View , Alert} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
-import { router, Stack } from "expo-router";
+import { Stack } from "expo-router";
 
 const MainStack = () => {
   return (
@@ -20,7 +20,7 @@ const MainStack = () => {
             <View style={{ flexDirection: "row", marginRight: 10 }}>
               <TouchableOpacity
                 onPress={() => {
-                  router.push("/(main)/videoChats");
+                  Alert.alert("Video call");
                 }}
               >
                 <Ionicons
@@ -32,7 +32,7 @@ const MainStack = () => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  router.push("/(main)/call");
+                  Alert.alert("Call");
                 }}
               >
                 <Ionicons
@@ -44,7 +44,7 @@ const MainStack = () => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  router.navigate("/(main)/userprofile")
+                  Alert.alert("Profile page");
                 }}
               >
                 <Ionicons
@@ -63,8 +63,6 @@ const MainStack = () => {
           gestureDirection: "vertical",
         })}
       />
-      <Stack.Screen name="videoChats"/>
-      <Stack.Screen name="call" />
     </Stack>
   );
 };

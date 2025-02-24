@@ -7,12 +7,14 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,Platform,
   TextInput,
+  Alert,
 } from "react-native";
 import chatData from "../../constants/chatData";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
+
 
 const ChatScreen = () => {
   function GotoChatPage(name) {
@@ -32,7 +34,7 @@ const ChatScreen = () => {
         <View style={styles.heading_container}>
           <Text style={styles.header_text}>LoadInfoTech</Text>
           <TouchableOpacity onPress={()=>{
-            router.push("/(main)/settingPage")
+            Alert.alert("Setting page")
           }}>
             <Ionicons name="settings-outline" size={24} color="black" />
           </TouchableOpacity>
