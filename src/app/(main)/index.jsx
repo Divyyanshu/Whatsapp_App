@@ -32,7 +32,7 @@ const ChatScreen = () => {
       ></KeyboardAvoidingView>
       <View style={styles.header}>
         <View style={styles.heading_container}>
-          <Text style={styles.header_text}>LoadInfoTech</Text>
+          <Text style={styles.header_text}>Load Infotech</Text>
           <TouchableOpacity onPress={()=>{
             Alert.alert("Setting page")
           }}>

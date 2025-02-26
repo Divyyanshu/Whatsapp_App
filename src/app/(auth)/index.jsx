@@ -17,7 +17,7 @@ const Auth = () => {
 
   // routing to index to welcome page
   function Go_to_welcome_page() {
-    router.push("/(auth)/login");   // Route changing heRE ! APP BYpass !
+    router.push("/(main)");   // Route changing heRE ! APP BYpass !
   }
 
   function loading_time() {

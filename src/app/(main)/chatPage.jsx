@@ -14,12 +14,41 @@ import Feather from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import messageChats from "../../constants/messageChats";
+import * as DocumentPicker from "expo-document-picker";
+import AttachmentModal from "../../components/molecules/AttachmentModal";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 
 const ChatPage = () => {
   const [messages, setMessages] = useState(messageChats);
   const [newMessage, setNewMessage] = useState("");
+  const [pickedFile, setPickedFile] = useState(null);
   const flatListRef = useRef(null);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  // Fixed Document Picker Function
+  const handleSelect = (type) => {
+    console.log("Selected:", type);
+    setModalVisible(false); 
+  };
+
+  const pickDocument = async () => {
+    try {
+      const result = await DocumentPicker.getDocumentAsync({
+        type: "*/*",
+        copyToCacheDirectory: false,
+      });
+
+      if (result.canceled) {
+        console.log("User cancelled document picker");
+        return;
+      }
+
+      setPickedFile(result);
+      console.log("hello ji File:", result);
+    } catch (err) {
+      console.log("Error picking document:", err);
+    }
+  };
 
   const sendMessage = () => {
     if (newMessage.trim() === "") return;
@@ -47,9 +76,12 @@ const ChatPage = () => {
       ]);
     }, 1000);
 
-    setNewMessage(""); // Clear input after sending
+    setNewMessage("");
 
-    setTimeout(() => flatListRef.current?.scrollToEnd({ animated: false }), 100);
+    setTimeout(
+      () => flatListRef.current?.scrollToEnd({ animated: false }),
+      100
+    );
   };
 
   const renderMessage = ({ item }) => {
@@ -90,23 +122,18 @@ const ChatPage = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.container}
-        keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 40}
-      >
         <View style={styles.messageChat_body}>
           <View style={styles.messageContainer}>
-          <FlatList
-            data={messages}
-            renderItem={renderMessage}
-            keyExtractor={(item, index) => index.toString()}
-            ref={flatListRef}
-            onContentSizeChange={() =>
-              flatListRef.current?.scrollToEnd({ animated: false })
-            }
-            contentContainerStyle={styles.messageList}
-          />
+            <FlatList
+              data={messages}
+              renderItem={renderMessage}
+              keyExtractor={(item, index) => index.toString()}
+              ref={flatListRef}
+              onContentSizeChange={() =>
+                flatListRef.current?.scrollToEnd({ animated: false })
+              }
+              contentContainerStyle={styles.messageList}
+            />
           </View>
         </View>
 
@@ -115,9 +142,8 @@ const ChatPage = () => {
           <View style={styles.message_Container}>
             <View style={styles.input_message}>
               <TouchableOpacity>
-                <Feather name="smile" size={23} color="gray" />
+                <Feather name="smile" size={20} color="gray" />
               </TouchableOpacity>
-
               <TextInput
                 style={styles.input_box}
                 placeholder="Message"
@@ -126,25 +152,28 @@ const ChatPage = () => {
                 value={newMessage}
                 onChangeText={setNewMessage}
               />
+              <View>
+              <AttachmentModal
+                visible={modalVisible}
+                onClose={() => setModalVisible(false)}
+                onSelect={handleSelect}
+              />
+              </View>
               <TouchableOpacity>
-                <MaterialIcons name="attach-file" size={22} color="gray" />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <MaterialIcons name="camera-alt" size={22} color="gray" />
+                <MaterialIcons name="camera-alt" size={20} color="gray" />
               </TouchableOpacity>
             </View>
 
             {/* Send Button / Mic Button */}
             <TouchableOpacity style={styles.micButton} onPress={sendMessage}>
               {newMessage.trim() === "" ? (
-                <Ionicons name="mic" size={24} color="white" />
+                <Ionicons name="mic" size={20} color="white" />
               ) : (
-                <Ionicons name="send" size={24} color="white" />
+                <Ionicons name="send" size={20} color="white" />
               )}
             </TouchableOpacity>
           </View>
         </View>
-      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
@@ -159,22 +188,22 @@ const styles = StyleSheet.create({
   messageChat_body: {
     flex: 1,
     backgroundColor: "#ECE5DD",
-    justifyContent:"center",
-    alignItems : "center",
-    // marginHorizontal : verticalScale(10)
+    justifyContent: "center",
+    alignItems: "center"
   },
   messageList: {
     padding: scale(10),
-    justifyContent : "center"
+    justifyContent: "center",
   },
   messageContainer: {
     flexDirection: "row",
     marginBottom: verticalScale(15),
-    alignItems : "center"
+    alignItems: "center",
   },
   message: {
     padding: moderateScale(10),
     borderRadius: moderateScale(8),
+    borderCurve : "continuous",
     maxWidth: "70%",
   },
   userMessageContainer: {
@@ -193,7 +222,7 @@ const styles = StyleSheet.create({
   },
   messageText: {
     fontSize: moderateScale(13),
-    flexWrap : "wrap",
+    flexWrap: "wrap",
     color: "#000",
   },
   messageTime_container: {
@@ -208,17 +237,13 @@ const styles = StyleSheet.create({
     color: "#313131",
   },
   footer: {
-    height: verticalScale(70),
+    height: verticalScale(40),
     backgroundColor: "#ECE5DD",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent : "center",
-    paddingHorizontal: scale(10),
-    shadowColor: "#ECE5DD",
-    shadowOffset: { width: 0, height: verticalScale(4) },
-    shadowOpacity: 0.3,
-    shadowRadius: moderateScale(20),
-    elevation: moderateScale(5),
+    justifyContent: "center",
+    paddingHorizontal: scale(5),
+    marginBottom : scale(10)
   },
   message_Container: {
     flex: 1,
@@ -228,26 +253,28 @@ const styles = StyleSheet.create({
   },
   input_message: {
     flex: 1,
+    height :50,
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "white",
-    justifyContent : "center",
+    justifyContent: "center",
     borderRadius: moderateScale(30),
-    paddingHorizontal: scale(8),
-    paddingVertical: verticalScale(14),
+    borderCurve : "continuous",
+    paddingHorizontal: scale(10),
     marginHorizontal: scale(10),
     gap: scale(8),
   },
   input_box: {
     flex: 1,
     paddingHorizontal: scale(10),
-    fontSize: moderateScale(16),
-    alignItems: "center"
+    fontSize: moderateScale(12),
+    justifyContent : "space-between",
+    alignItems: "center",
   },
   micButton: {
     backgroundColor: "#008069",
-    padding: moderateScale(12),
+    padding: moderateScale(10),
     borderRadius: moderateScale(25),
-    marginRight : 10
+    marginRight: 10,
   },
 });
